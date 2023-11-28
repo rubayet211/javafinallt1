@@ -32,4 +32,20 @@ public class FirstController {
         model.addAttribute("email", "kawsur@aiub.edu");
         return "first";
     }
+
+    @RequestMapping("/fourth")
+    public String fourth() {
+        return "registration";
+    }
+
+    @RequestMapping("/fifth")
+    public String fifth(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String fullname = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        model.addAttribute("fullname", fullname);
+        model.addAttribute("email", email);
+        model.addAttribute("password", password);
+        return "confirm";
+    }
 }

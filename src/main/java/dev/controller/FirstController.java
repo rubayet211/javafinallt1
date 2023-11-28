@@ -1,17 +1,30 @@
 package dev.controller;
 
+import dev.domain.User;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
 public class FirstController {
+
+    @InitBinder
+    public void intiBinder(WebDataBinder webDataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
     @RequestMapping("/first")
     public void first(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,18 +47,18 @@ public class FirstController {
     }
 
     @RequestMapping("/fourth")
-    public String fourth() {
+    public String fourth(Model model) {
+        model.addAttribute("user", new User());
         return "registration";
     }
 
     @RequestMapping("/fifth")
-    public String fifth(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String fullname = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        model.addAttribute("fullname", fullname);
-        model.addAttribute("email", email);
-        model.addAttribute("password", password);
-        return "confirm";
+    public String fifth(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        else {
+            return "confirm";
+        }
     }
 }

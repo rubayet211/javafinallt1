@@ -7,8 +7,8 @@
 
 <p>Your registration is successful. Please visit login page.</p>
 
-<p>Full Name: ${fullname}</p>
-<p>Email: ${email}</p>
+<p>Full Name: ${user.fullname}</p>
+<p>Email: ${user.email}</p>
 
 </body>
 </html>

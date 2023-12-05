@@ -1,6 +1,7 @@
 package dev.controller;
 
 import dev.domain.User;
+import dev.repository.UserRepository;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +28,10 @@ import java.time.LocalDate;
 @Controller
 public class FirstController {
 
-    private DataSource dataSource;
+    private UserRepository userRepository;
 
-    public FirstController(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public FirstController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @InitBinder
@@ -71,13 +72,7 @@ public class FirstController {
             return "registration";
         }
         else {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (full_name, email, password, date_of_birth) VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, user.getFullname());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setDate(4, Date.valueOf(user.getDateOfBirth()));
-            preparedStatement.execute();
+            userRepository.create(user);
             return "confirm";
         }
     }

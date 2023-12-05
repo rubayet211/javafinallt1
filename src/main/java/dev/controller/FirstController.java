@@ -2,6 +2,7 @@ package dev.controller;
 
 import dev.domain.User;
 import dev.repository.UserRepository;
+import dev.service.UserService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +29,10 @@ import java.time.LocalDate;
 @Controller
 public class FirstController {
 
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public FirstController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public FirstController(UserService userService) {
+        this.userService = userService;
     }
 
     @InitBinder
@@ -72,7 +73,7 @@ public class FirstController {
             return "registration";
         }
         else {
-            userRepository.create(user);
+            userService.create(user);
             return "confirm";
         }
     }

@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 @Controller
 public class FirstController {
@@ -24,6 +29,9 @@ public class FirstController {
     public void intiBinder(WebDataBinder webDataBinder) {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+
+        DateValidator dateValidator = new DateValidator();
+        webDataBinder.registerCustomEditor(LocalDate.class, dateValidator);
     }
 
     @RequestMapping("/first")
@@ -53,12 +61,21 @@ public class FirstController {
     }
 
     @RequestMapping("/fifth")
-    public String fifth(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String fifth(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
         else {
             return "confirm";
+        }
+    }
+
+    public static class DateValidator extends PropertyEditorSupport {
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            LocalDate date = LocalDate.parse(text);
+            date = date.plusDays(20);
+            setValue(date);
         }
     }
 }

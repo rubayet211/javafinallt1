@@ -9,6 +9,7 @@
 
 <p>Full Name: ${user.fullname}</p>
 <p>Email: ${user.email}</p>
+<p>Date Of Birth: ${user.dateOfBirth}</p>
 
 </body>
 </html>

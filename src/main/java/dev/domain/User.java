@@ -3,8 +3,10 @@ package dev.domain;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 public class User {
 
@@ -19,6 +21,10 @@ public class User {
     @NotNull
     @Size(min = 8)
     private String password;
+
+    @NotNull
+    @Past
+    private LocalDate dateOfBirth;
 
     public User() {
     }
@@ -51,5 +57,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

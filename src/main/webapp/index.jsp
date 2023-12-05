@@ -5,8 +5,7 @@
 
 <hr>
 
-<a href="${pageContext.request.contextPath}/third">Third</a> |
-<a href="${pageContext.request.contextPath}/fourth">Fourth</a>
+<a href="${pageContext.request.contextPath}/create">Create User</a>
 
 </body>
 </html>

@@ -7,7 +7,7 @@
 <body>
 <h3>Registration Page</h3>
 
-<form:form method="post" action="fifth" modelAttribute="user">
+<form:form method="post" action="store" modelAttribute="user">
 
 <label>Full Name</label>
 <form:input path="fullname" id="fullname"/>

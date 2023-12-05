@@ -11,5 +11,9 @@
 <p>Email: ${user.email}</p>
 <p>Date Of Birth: ${user.dateOfBirth}</p>
 
+<hr>
+
+<a href="${pageContext.request.contextPath}">Home</a>
+
 </body>
 </html>

@@ -12,5 +12,12 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean id="dataSource" class="com.mysql.cj.jdbc.MysqlDataSource">
+        <property name="databaseName" value="apwj"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/apwj"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
     <!--<bean id="fc" class="dev.controller.FirstController"/>-->
 </beans>

@@ -19,4 +19,12 @@ public class UserService {
         user.setFullname(user.getFullname().toUpperCase());
         userRepository.create(user);
     }
+
+    public void update(User user) throws  SQLException {
+        userRepository.update(user);
+    }
+
+    public User get(String email) throws SQLException {
+        return userRepository.get(email);
+    }
 }

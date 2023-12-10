@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,24 @@ public class UserController {
         else {
             userService.create(user);
             return "confirm";
+        }
+    }
+
+    @RequestMapping("/get/{email}")
+    public String sixth(@PathVariable ("email") String email, Model model) throws SQLException {
+        User user = userService.get(email);
+        model.addAttribute("user", user);
+        return "update";
+    }
+
+    @RequestMapping("/update")
+    public String sixth(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) throws SQLException {
+        if (bindingResult.hasErrors()) {
+            return "update";
+        }
+        else {
+            userService.update(user);
+            return "/";
         }
     }
 }

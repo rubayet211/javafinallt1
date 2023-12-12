@@ -3,41 +3,54 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <html>
-<head></head>
+<head>
+    <title>Create Student</title>
+</head>
 <body>
-<h3>Registration Page</h3>
 
-<form:form method="post" action="store" modelAttribute="user">
+<h2>Create Student</h2>
 
-<label>Full Name</label>
-<form:input path="fullname" id="fullname"/>
-<form:errors path="fullname"/>
+<form:form modelAttribute="student" method="post" action="/students/create">
+    <label for="id">ID:</label>
+    <form:input path="id" type="number" required="true" />
 
-<br><br>
+    <br/><br/>
 
-<label>Date Of Birth</label>
-<form:input type="date" path="dateOfBirth" id="dateOfBirth"/>
-<form:errors path="dateOfBirth"/>
+    <label for="name">Name:</label>
+    <form:input path="name" required="true" />
 
-<br><br>
+    <br/><br/>
 
-<label>Email</label>
-<form:input path="email" id="email"/>
-<form:errors path="email"/>
+    <label for="email">Email:</label>
+    <form:input path="email" type="email" required="true" />
 
-<br><br>
+    <br/><br/>
 
-<label>Password</label>
-<form:input path="password" id="password"/>
-<form:errors path="password"/>
+    <label for="dateOfBirth">Date of Birth:</label>
+    <form:input path="dateOfBirth" type="date" required="true" />
 
-<br><br>
+    <br/><br/>
 
-<input type="submit" value="Register" />
+    <label for="gender">Gender:</label>
+    <form:select path="gender" required="true">
+        <form:option value="MALE" label="Male" />
+        <form:option value="FEMALE" label="Female" />
+    </form:select>
 
+    <br/><br/>
+
+    <label for="quota">Quota:</label>
+    <form:input path="quota" required="true" />
+
+    <br/><br/>
+
+    <label for="country">Country:</label>
+    <form:input path="country" required="true" />
+
+    <br/><br/>
+
+    <input type="submit" value="Create Student" />
 </form:form>
-
-<a href="${pageContext.request.contextPath}">Home</a>
 
 </body>
 </html>

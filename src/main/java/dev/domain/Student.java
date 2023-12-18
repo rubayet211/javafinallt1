@@ -10,13 +10,12 @@ import java.time.LocalDate;
 
 public class Student {
 
-    @NotBlank
     @NotNull
     private int id;
     @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$", message = "Incorrect email format")
     private String email;
 
@@ -26,13 +25,13 @@ public class Student {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
 
-    @NotNull
+    @NotBlank
     private String gender;
 
-    @NotNull
+    @NotBlank
     private String quota = "N/A";
 
-    @NotNull
+    @NotBlank
     private String country = "Bangladesh";
 
 

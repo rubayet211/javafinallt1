@@ -19,5 +19,5 @@
         <property name="password" value="root"/>
     </bean>
 
-    <!--<bean id="fc" class="dev.controller.UserController"/>-->
+    <!--<bean id="fc" class="dev.controller.StudentController"/>-->
 </beans>

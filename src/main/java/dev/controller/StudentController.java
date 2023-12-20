@@ -10,6 +10,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +39,17 @@ public class StudentController {
     @RequestMapping("/store")
     public String storeStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
+
             return "registration";
         }
-        else {
+
+        try {
             studentService.createStudent(student);
             return "confirm";
+        } catch (ValidationException e) {
+
+            bindingResult.rejectValue("dateOfBirth", "dateOfBirth.invalid", e.getMessage());
+            return "registration";
         }
     }
 
@@ -73,8 +80,14 @@ public class StudentController {
             return "update";
         }
         else {
-            studentService.updateStudentById(student);
-            return "redirect:/students";
+            try {
+                studentService.updateStudentById(student);
+                return "redirect:/students";
+            } catch (ValidationException e) {
+
+                bindingResult.rejectValue("dateOfBirth", "dateOfBirth.invalid", e.getMessage());
+                return "update";
+            }
         }
     }
 

@@ -32,10 +32,27 @@ form {
     margin-top: 20px;
 }
 
+.gender-container {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+
 label {
     display: block;
-    margin-bottom: 8px;
     color: #555;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-left: 10px;
+
 }
 
 input[type="text"],
@@ -50,10 +67,6 @@ select {
     box-sizing: border-box;
 }
 
-input[type="radio"] {
-    display: inline-block;
-    margin-right: 5px;
-}
 
 div.checkbox-group {
     margin-bottom: 15px;
@@ -68,21 +81,25 @@ input[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    background-color: #4285f4;
+    color: #fff;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 input[type="submit"]:hover {
-    background-color: #4285f4;
-    color: #fff;
+    background-color: #4444FF;
+    color: #E2DED0;
 }
 
 a {
+            cursor: pointer;
             text-decoration: none;
             color: #4CAF50;
             font-weight: bold;
             border: 2px solid #4CAF50;
             padding: 10px 15px;
             border-radius: 5px;
+            text-align: center;
             transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
@@ -116,21 +133,42 @@ a {
         <form:errors path="email"/>
 
         <br><br>
+         <label for="gender">Gender</label>
+         <br>
+        <div class="gender-container">
 
-        <label>Gender</label><br>
-        <form:radiobutton path="gender" value="MALE" label="Male"/>
-        <form:radiobutton path="gender" value="FEMALE" label="Female"/>
-        <form:errors path="gender"/>
+            <input type="radio" id="male" name="gender" value="Male"/>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female"/>
+            <label for="female">Female</label>
+            <div class="error">
+                <form:errors path="gender"/>
+            </div>
+        </div>
 
         <br>
 
         <label for="quota">Quota:</label>
-            <div>
-                <form:checkbox path="quota" value="Scholarship" /> Scholarship
-                <form:checkbox path="quota" value="Aid" /> Aid
-                <form:checkbox path="quota" value="Tribal" /> Tribal
-                <form:checkbox path="quota" value="N/A" checked="true" /> N/A
-            </div>
+        <div id="quotaOptions">
+            <input type="checkbox" name="quota" value="Scholarship" /> Scholarship
+            <input type="checkbox" name="quota" value="Aid" /> Aid
+            <input type="checkbox" name="quota" value="Tribal" /> Tribal
+            <input type="checkbox" name="quota" value="N/A" checked="true" /> N/A
+        </div>
+
+        <script>
+            var checkboxes = document.querySelectorAll('input[name="quota"]');
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    checkboxes.forEach(function (otherCheckbox) {
+                        if (otherCheckbox !== checkbox) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                });
+            });
+        </script>
           <br>
 
             <label for="country">Country:</label>

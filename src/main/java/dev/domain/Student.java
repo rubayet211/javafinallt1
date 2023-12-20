@@ -25,8 +25,8 @@ public class Student {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
 
-    @NotBlank
-    private String gender;
+    @NotNull
+    private Gender gender;
 
     @NotBlank
     private String quota = "N/A";
@@ -35,7 +35,7 @@ public class Student {
     private String country = "Bangladesh";
 
 
-    public Student(int id, String name, String email, LocalDate dateOfBirth, String gender, String quota, String country) {
+    public Student(int id, String name, String email, LocalDate dateOfBirth, Gender gender, String quota, String country) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -78,11 +78,11 @@ public class Student {
     }
 
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -103,5 +103,18 @@ public class Student {
     }
 
     public Student() {
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender='" + gender + '\'' +
+                ", quota='" + quota + '\'' +
+                ", country='" + country + '\'' +
+                '}';
     }
 }
